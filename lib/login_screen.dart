@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:nour/sharing/sharing.component/components.dart';
 //....
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
+
   var passwordController = TextEditingController();
+
   var formkey = GlobalKey<FormState>();
+
+  bool ispass = true;
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +43,9 @@ class LoginScreen extends StatelessWidget {
                       type: TextInputType.emailAddress,
                       validate:(String? value){
                         if(value!.isEmpty){
-                          return'email adress must not be empty';
+                          return'email address must not be empty';
                         }
-                       return null;
+                       return null ;
                       },
                       text: 'Email adress ',
                       prefex: Icons.email,
@@ -55,8 +64,14 @@ class LoginScreen extends StatelessWidget {
                       },
                       text: 'password',
                       prefex:Icons.lock,
-                    suffex: Icons.remove_red_eye,
-                    isPassword: true,
+                    suffex: ispass ?Icons.visibility : Icons.visibility_off,
+                    isPassword: ispass,
+                    suffexPass: (){
+                        setState(() {
+                          ispass = !ispass;
+                        });
+
+                    }
 
                   ),
                   // TextFormField(
@@ -91,7 +106,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                  defaultButton(
                      function:(){
-                       if(formkey.currentState!.validate!()){
+                       if(formkey.currentState!.validate()){
 
                        print(emailController.text);
                        print(passwordController.text);

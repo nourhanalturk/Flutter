@@ -33,6 +33,7 @@ Widget defaultFormField ({
   required String text,
   required IconData prefex,
   IconData? suffex,
+  Function? suffexPass ,
 
 
 }){
@@ -54,9 +55,14 @@ Widget defaultFormField ({
       prefixIcon: Icon(
         prefex,
       ),
-      suffixIcon: suffex != null ?Icon(
-       suffex,
-      ) : null ,
+      suffixIcon: suffex != null ?IconButton(
+        onPressed: (){
+          suffexPass!();
+        },
+        icon: Icon(
+         suffex,
+        ),
+      ) :null,
       border: OutlineInputBorder(),
     ),
   );
