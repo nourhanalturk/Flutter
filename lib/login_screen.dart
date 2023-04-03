@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nour/sharing/sharing.component/components.dart';
-
+//....
 class LoginScreen extends StatelessWidget {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
