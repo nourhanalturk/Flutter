@@ -95,6 +95,7 @@ class _HomeLayoutState extends State<HomeLayout> {
 
 
   Database? database;
+
   void creatDataBase () async
   {
    database =  await openDatabase(
@@ -104,7 +105,7 @@ class _HomeLayoutState extends State<HomeLayout> {
     {
 print("database created");
 
-    db.execute('CREATE TABLE tasks (id INTEGER PRIMARY KEY,title TEXT ,date TEXT ,status TEXT)').then((value)
+    db.execute('CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT ,date TEXT ,status TEXT)').then((value)
     {
     print('table created');
 
@@ -122,16 +123,16 @@ print("database created");
 
   void insertDatabase (){
   database!.transaction((txn) {
-    txn.rawInsert('INSERT INTO tasks (title ,date ,time ,status) VALUES ("hi","30/4","4:00","on")').then((value)
+    txn.rawInsert('INSERT INTO tasks(title,date,status) VALUES ("hi","30/4","on")').then((value)
     {
 
         print('inserted successfully');
 
 
     }).catchError((error){
-print(error);
+             print(error);
     });
-return Future.value();
+            return Future.value();
   });
 
 
