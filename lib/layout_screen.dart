@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nour/archive_tasks_screen.dart';
 import 'package:nour/done_tasks_screen.dart';
 import 'package:nour/new_tasks_screen.dart';
+import 'package:sqflite/sqflite.dart';
 
 class HomeLayout extends StatefulWidget {
 
@@ -29,7 +31,11 @@ class _HomeLayoutState extends State<HomeLayout> {
 
   ];
 
+@override
+  void initState() {
+  creatDataBase();
 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +46,9 @@ class _HomeLayoutState extends State<HomeLayout> {
         ) ,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async
+        onPressed: ()
         {
-          var name =await myName() ;
-          print(name);
+         insertDatabase();
 
         },
         child: Icon(
@@ -88,8 +93,47 @@ class _HomeLayoutState extends State<HomeLayout> {
     );
   }
 
-  Future<String> myName ()  async
+
+  Database? database;
+  void creatDataBase () async
   {
-    return'nourhan';
+   database =  await openDatabase(
+    'ToDo.db',
+    version: 2,
+    onCreate:(db , version)
+    {
+print("database created");
+
+    db.execute('CREATE TABLE tasks (id INTEGER PRIMARY KEY,title TEXT ,date TEXT ,status TEXT)').then((value)
+    {
+    print('table created');
+
+    }).catchError((error){
+
+      print('Error is ${error}');
+
+    });
+    },
+    onOpen: (db) {
+      print("database opened");
+    },
+  );
+  }
+
+  void insertDatabase (){
+  database!.transaction((txn) {
+    txn.rawInsert('INSERT INTO tasks (title ,date ,time ,status) VALUES ("hi","30/4","4:00","on")').then((value)
+    {
+
+        print('inserted successfully');
+
+
+    }).catchError((error){
+print(error);
+    });
+return Future.value();
+  });
+
+
   }
 }

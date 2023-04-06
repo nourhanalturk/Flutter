@@ -48,7 +48,7 @@ Widget defaultFormField ({
       onChange!(s);
     },
     validator: (String? v){
-    validate(v);
+    return validate(v);
     },
     decoration: InputDecoration(
       labelText: text,
@@ -57,7 +57,7 @@ Widget defaultFormField ({
       ),
       suffixIcon: suffex != null ?IconButton(
         onPressed: (){
-          suffexPass!();
+          return suffexPass!();
         },
         icon: Icon(
          suffex,

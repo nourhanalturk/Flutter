@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: passwordController,
                       type: TextInputType.visiblePassword,
                       validate: (String? value){
-                        if(value == null ||value!.isEmpty){
+                        if(value == null ||value.isEmpty){
                           return 'password??';
                         }
                         return null ;
