@@ -34,7 +34,7 @@ Widget defaultFormField ({
   required IconData prefex,
   IconData? suffex,
   Function? suffexPass ,
-
+   Function? ontap,
 
 }){
   return TextFormField(
@@ -50,6 +50,10 @@ Widget defaultFormField ({
     validator: (String? v){
     return validate(v);
     },
+    onTap:(){
+      return ontap!();
+    },
+
     decoration: InputDecoration(
       labelText: text,
       prefixIcon: Icon(
@@ -67,3 +71,42 @@ Widget defaultFormField ({
     ),
   );
 }
+
+Widget buildTaskItem (Map model)=>Padding(
+  padding: const EdgeInsets.all(15.0),
+  child: Row(
+    children: [
+      CircleAvatar(
+        radius:40.0 ,
+        child: Text(
+            '${model['time']}'
+        ),
+
+
+      ),
+      SizedBox(
+        width: 10.0,
+      ),
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '${model['title']}',
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            '${model['date']}',
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          ),
+
+        ],
+      ),
+
+    ],
+  ),
+);
