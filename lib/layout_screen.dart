@@ -255,7 +255,8 @@ print("database created");
 }) async
   {
   return await database!.transaction((txn) {
-    txn.rawInsert('INSERT INTO tasks(title,date,time,status) VALUES ("$title","$date","$time","new")').then((value)
+    txn.rawInsert('INSERT INTO tasks(title,date,time,status) VALUES ("$title","$date","$time","new")'
+    ).then((value)
     {
 
         print('inserted successfully');
