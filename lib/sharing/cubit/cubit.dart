@@ -36,16 +36,16 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppChangeButtomNavBarState());
   }
 
-  void creatDataBase ()
+  void createDataBase ()
   {
      openDatabase(
-      'ToDo3.db',
+      'ToDo4.db',
       version: 2,
-      onCreate:(db , version)
+      onCreate:(database , version)
       {
         print("database created");
 
-        db.execute('CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT ,date TEXT ,time TEXT,status TEXT)').then((value)
+        database.execute('CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT ,date TEXT ,time TEXT,status TEXT)').then((value)
         {
           print('table created');
 
@@ -55,13 +55,10 @@ class AppCubit extends Cubit<AppStates> {
 
         });
       },
-      onOpen: (db) {
+      onOpen: (database) {
+
+        getDataFromDatabase(database);
         print("database opened");
-        getDataFromDatabase(db).then((value) {
-          tasks=value;
-          print(tasks);
-          emit(AppGetDatabaseState());
-        });
       },
     ).then((value) {
       database = value;
@@ -83,13 +80,18 @@ class AppCubit extends Cubit<AppStates> {
         print('inserted successfully');
         emit(AppInsertDatabaseState());
 
+        getDataFromDatabase(database).then((value) {
+          tasks=value;
+          print(tasks);
+          emit(AppGetDatabaseState());
+        });
+
 
       }).catchError((error){
         print(error);
       });
       return Future.value();
     });
-
 
   }
 

@@ -36,9 +36,13 @@ class HomeLayout extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>AppCubit()..creatDataBase(),
+      create: (BuildContext context) =>AppCubit()..createDataBase(),
       child: BlocConsumer<AppCubit,AppStates>(
-        listener: (context,state) {},
+        listener: (context,state) {
+          if(state is AppInsertDatabaseState){
+            Navigator.pop(context);
+          }
+        },
         builder: (context,state){
           AppCubit cubit = AppCubit.get(context);
 
@@ -55,6 +59,7 @@ class HomeLayout extends StatelessWidget
                 if(cubit.isbottomsheet)
                 {
                   if(formkey.currentState!.validate()){
+                    cubit.insertDatabase(title: titlecontroller.text, date: datecontroller.text, time: timecontroller.text);
                     // insertDatabase(
                     //   title: titlecontroller.text,
                     //   date: datecontroller.text,
@@ -129,7 +134,7 @@ class HomeLayout extends StatelessWidget
                                     context: context,
                                     initialDate: DateTime.now(),
                                     firstDate: DateTime.now(),
-                                    lastDate: DateTime.parse('2023-04-10'),
+                                    lastDate: DateTime.parse('2023-04-20'),
                                   ).then( (value) {
                                     print(DateFormat.yMMMd().format(value!));
                                     datecontroller.text=DateFormat.yMMMd().format(value!);
@@ -193,13 +198,14 @@ class HomeLayout extends StatelessWidget
               ],
 
             ),
-            body: ConditionalBuilder(
-              condition: true,
-              builder:(context) => cubit.screen[cubit.currentindex],
-              fallback:(context) => const Center(
-                  child: CircularProgressIndicator()
-              ),
-            ),
+            body: cubit.screen[cubit.currentindex],
+            // ConditionalBuilder(
+            //   condition: true,
+            //   builder:(context) => cubit.screen[cubit.currentindex],
+            //   fallback:(context) => const Center(
+            //       child: CircularProgressIndicator()
+            //   ),
+            // ),
 
           );
         },
