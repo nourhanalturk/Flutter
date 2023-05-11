@@ -29,22 +29,7 @@ class NewsLayout extends StatelessWidget {
             ),
             floatingActionButton:FloatingActionButton(
               onPressed: () {
-             DioHelper.getData(
-                 url:'v2/everything' ,
 
-                 query:{
-                   'q':'tesla',
-                   'from':'2023-04-11',
-                   'sortBy':'publishedAt',
-                   'apiKey':'19f2f6d6044a4c4899db331be9a42894',
-                 }
-
-               ).then((value)
-             {
-             print(value?.data.toString());
-             }).catchError((error){
-               print(error.toString());
-             });
             },
               child: Icon(
                 Icons.add,

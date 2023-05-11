@@ -8,6 +8,7 @@ import '../../modules/business/business_screen.dart';
 import '../../modules/science/science_screen.dart';
 import '../../modules/settings/settings.dart';
 import '../../modules/sports/sports_screen.dart';
+import '../../network/remote/dio_helper.dart';
 
 class NewsCubit extends Cubit<NewsStates>{
 
@@ -52,6 +53,28 @@ class NewsCubit extends Cubit<NewsStates>{
   void changeBottomNavBar (int index){
     currentIndex = index ;
      emit(NewsBottomNavState());
+  }
+
+  List <Map>business =[];
+  void getBusiness(){
+    DioHelper.getData(
+        url:'v2/everything' ,
+
+        query:{
+          'q':'tesla',
+          'from':'2023-04-11',
+          'sortBy':'publishedAt',
+          'apiKey':'19f2f6d6044a4c4899db331be9a42894',
+        }
+
+    ).then((value)
+    {
+      //print(value?.data['totalResults'].toString());
+      business = value?.data['articles'];
+      print(value?.data['articles'][0]);
+    }).catchError((error){
+      print(error.toString());
+    });
   }
 
 }
