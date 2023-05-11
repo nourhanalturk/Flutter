@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nour/sharing/cubit/states.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../archive_tasks_screen.dart';
-import '../../done_tasks_screen.dart';
-import '../../new_tasks_screen.dart';
+import '../../modules/archived_screen/archive_tasks_screen.dart';
+import '../../modules/done_screen/done_tasks_screen.dart';
+import '../../modules/tasks_screen/new_tasks_screen.dart';
 import '../sharing.component/constans.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -28,7 +28,12 @@ class AppCubit extends Cubit<AppStates> {
     "archived",
 
   ];
-  List<Map> tasks =[];
+
+
+  List<Map> newTasks =[];
+  List<Map> doneTasks =[];
+  List<Map> archivedTasks =[];
+
 
   void changeIndex (int index){
 
@@ -80,11 +85,7 @@ class AppCubit extends Cubit<AppStates> {
         print('inserted successfully');
         emit(AppInsertDatabaseState());
 
-        getDataFromDatabase(database).then((value) {
-          tasks=value;
-          print(tasks);
-          emit(AppGetDatabaseState());
-        });
+        getDataFromDatabase(database);
 
 
       }).catchError((error){
@@ -95,9 +96,27 @@ class AppCubit extends Cubit<AppStates> {
 
   }
 
-  Future<List<Map>> getDataFromDatabase(database) async
+  void getDataFromDatabase(database)
   {
-    return await database.rawQuery('SELECT * FROM tasks');
+    newTasks =[];
+    doneTasks=[];
+    archivedTasks=[];
+     database.rawQuery('SELECT * FROM tasks').then((value){
+
+       value.forEach((element){
+         if(element['status']=='new') {
+           newTasks.add(element);
+         }
+         else if (element['status']=='done') {
+           doneTasks.add(element);
+         }
+         else
+           archivedTasks.add(element);
+
+       }
+       );
+       emit(AppGetDatabaseState());
+     });
 
   }
 
@@ -114,5 +133,21 @@ class AppCubit extends Cubit<AppStates> {
    isbottomsheet = isShow;
 
    emit(AppChangeBottomSheetState());
+  }
+
+  void updateDatabase ({
+    required String status ,
+    required int id ,
+   })
+  {
+    database!.rawUpdate(
+        'UPDATE tasks SET status =? WHERE id =? ',
+      [ status,id],
+    ).then((value)
+    {
+      getDataFromDatabase(database);
+      emit(AppUpdateDatabaseState());
+    }
+    );
   }
 }

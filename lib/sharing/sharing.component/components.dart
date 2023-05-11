@@ -1,5 +1,8 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nour/sharing/cubit/cubit.dart';
 
 Widget defaultButton({
   double width = double.infinity,
@@ -72,7 +75,7 @@ Widget defaultFormField ({
   );
 }
 
-Widget buildTaskItem (Map model)=>Padding(
+Widget buildTaskItem (Map model,context)=>Padding(
   padding: const EdgeInsets.all(15.0),
   child: Row(
     children: [
@@ -84,29 +87,58 @@ Widget buildTaskItem (Map model)=>Padding(
 
 
       ),
-      SizedBox(
+      const SizedBox(
         width: 10.0,
       ),
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            '${model['title']}',
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
+      Expanded(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '${model['title']}',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Text(
-            '${model['date']}',
-            style: TextStyle(
-              color: Colors.grey,
+            Text(
+              '${model['date']}',
+              style: TextStyle(
+                color: Colors.grey,
+              ),
             ),
-          ),
 
-        ],
+          ],
+        ),
       ),
+      const SizedBox(
+        width: 10.0,
+      ),
+      IconButton(
+        onPressed: () {
+          AppCubit.get(context).updateDatabase(
+              status: 'done',
+              id:model['id'] ,
+          );
+        },
+        icon:const Icon(
+          Icons.check_circle_outline,
+          color: Colors.green,
+        ),
 
+
+      ),
+      IconButton(
+        onPressed: () {
+          AppCubit.get(context).updateDatabase(
+            status: 'archived',
+            id:model['id'] ,
+          );
+        },
+        icon:Icon(Icons.archive_outlined),
+
+
+      ),
     ],
   ),
 );

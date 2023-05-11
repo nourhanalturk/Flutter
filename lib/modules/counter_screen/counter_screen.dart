@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nour/cubit/states.dart';
 
-import 'cubit/cubit.dart';
+import '../../cubit/cubit.dart';
 
 // state less contain one class provide widget
 
