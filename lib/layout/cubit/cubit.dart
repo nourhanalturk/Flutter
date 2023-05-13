@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,8 +57,9 @@ class NewsCubit extends Cubit<NewsStates>{
      emit(NewsBottomNavState());
   }
 
-  List <Map>business =[];
+  List<dynamic>business =[];
   void getBusiness(){
+    emit(NewsGetBusinessLoadingState());
     DioHelper.getData(
         url:'v2/everything' ,
 
@@ -69,11 +72,13 @@ class NewsCubit extends Cubit<NewsStates>{
 
     ).then((value)
     {
-      //print(value?.data['totalResults'].toString());
+
       business = value?.data['articles'];
       print(value?.data['articles'][0]);
+     emit(NewsGetBusinessDataSuccessState());
     }).catchError((error){
       print(error.toString());
+      emit(NewsGetBusinessDataErrorState(error.toString()));
     });
   }
 

@@ -142,3 +142,50 @@ Widget buildTaskItem (Map model,context)=>Padding(
     ],
   ),
 );
+
+Widget buildArticleComponent (article)=>Padding (
+  padding: const EdgeInsets.all(20.0),
+  child: Row(
+    children: [
+      Container(
+        width: 120,
+        height: 120,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25.0),
+          image: DecorationImage(
+            image: NetworkImage('${article['urlToImage']}'),
+            fit:BoxFit.cover,
+          ),
+        ),
+      ),
+      SizedBox(width: 20.0,),
+      Container(
+        height: 120.0,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${article['title']}',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+
+              ),
+              maxLines: 2,
+            ),
+            Text(
+              '${article['publishedAt']}',
+              style: TextStyle(
+                fontSize: 15.0,
+                color: CupertinoColors.systemGrey2,
+
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    ],
+  ),
+);
