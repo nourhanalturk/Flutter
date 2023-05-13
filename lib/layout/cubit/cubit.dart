@@ -1,3 +1,4 @@
+import 'dart:html';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class NewsCubit extends Cubit<NewsStates>{
 
   NewsCubit():super(NewsInitialState());
   static NewsCubit get(context)=> BlocProvider.of(context);
-  int currentIndex =1;
+  int currentIndex =0;
 
   List<BottomNavigationBarItem> bottomItems = [
     BottomNavigationBarItem(
@@ -63,8 +64,7 @@ class NewsCubit extends Cubit<NewsStates>{
         url:'v2/everything' ,
 
         query:{
-         'q':'tesla',
-          // 'from':'2023-04-11',
+          'q':'tesla',
           'sortBy':'publishedAt',
           'apiKey':'19f2f6d6044a4c4899db331be9a42894',
         }

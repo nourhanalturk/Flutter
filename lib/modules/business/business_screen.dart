@@ -19,11 +19,17 @@ class BusinessScreen extends StatelessWidget {
       builder: (context, state) {
         return  ConditionalBuilder(
           condition: state is !NewsGetBusinessLoadingState,
-        builder: (context)
+          builder: (context)
         {
-return ListView.separated(
+            return ListView.separated(
   physics: BouncingScrollPhysics(),
-  itemBuilder: (context, index) => buildArticleComponent(list[index]),
+              itemBuilder: (context, index) {
+                if (list != null && index < list.length) {
+                  return buildArticleComponent(list[index]);
+                } else {
+                  return SizedBox(); // Return an empty widget or handle the case when the list is empty or null
+                }
+              },
     separatorBuilder: (context, index) => Container(width: double.infinity,height: 1.0,color: Colors.grey,),
     itemCount:10,
 );
