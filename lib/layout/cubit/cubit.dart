@@ -54,6 +54,10 @@ class NewsCubit extends Cubit<NewsStates>{
 
   void changeBottomNavBar (int index){
     currentIndex = index ;
+    if(index ==1)
+      getSports();
+    if(index ==2)
+      getScience();
      emit(NewsBottomNavState());
   }
 
@@ -79,6 +83,69 @@ class NewsCubit extends Cubit<NewsStates>{
       print(error.toString());
       emit(NewsGetBusinessDataErrorState(error.toString()));
     });
+  }
+
+  List<dynamic>sports =[];
+  void getSports(){
+    emit(NewsGetSportsLoadingState());
+    if(sports.length==0)
+    {
+      DioHelper.getData(
+          url:'v2/everything' ,
+
+          query:{
+            'q':'tesla',
+            'sortBy':'publishedAt',
+            'apiKey':'19f2f6d6044a4c4899db331be9a42894',
+          }
+
+      ).then((value)
+      {
+
+        sports = value?.data['articles'];
+        print(value?.data['articles'][0]);
+        emit(NewsGetSportsDataSuccessState());
+      }).catchError((error){
+        print(error.toString());
+        emit(NewsGetSportsDataErrorState(error.toString()));
+      });
+    }else{
+      emit(NewsGetSportsDataSuccessState());
+    }
+
+  }
+
+
+
+  List<dynamic>science =[];
+  void getScience(){
+    emit(NewsGetScienceLoadingState());
+    if(science.length==0)
+    {
+      DioHelper.getData(
+          url:'v2/everything' ,
+
+          query:{
+            'q':'tesla',
+            'sortBy':'publishedAt',
+            'apiKey':'19f2f6d6044a4c4899db331be9a42894',
+          }
+
+      ).then((value)
+      {
+
+        science = value?.data['articles'];
+        print(value?.data['articles'][0]);
+        emit(NewsGetScienceDataSuccessState());
+      }).catchError((error){
+        print(error.toString());
+        emit(NewsGetScienceDataErrorState(error.toString()));
+      });
+    }else{
+      emit(NewsGetScienceDataSuccessState());
+    }
+
+
   }
 
 }
