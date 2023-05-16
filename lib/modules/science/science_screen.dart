@@ -26,7 +26,7 @@ class ScienceScreen extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 if (list != null && index < list.length) {
-                  return buildArticleComponent(list[index]);
+                  return buildArticleComponent(list[index],context);
                 } else {
                   return SizedBox(); // Return an empty widget or handle the case when the list is empty or null
                 }

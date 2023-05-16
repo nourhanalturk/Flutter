@@ -1,9 +1,10 @@
-import 'dart:html';
+
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nour/layout/cubit/states.dart';
+import 'package:nour/sharing/cubit/states.dart';
 
 
 import '../../modules/business/business_screen.dart';
@@ -116,10 +117,11 @@ class NewsCubit extends Cubit<NewsStates>{
   }
 
 
-
+//https://newsapi.org/v2/everything?q=tesla&apiKey=6369ec3072134b42a5ce1139b79db573
   List<dynamic>science =[];
   void getScience(){
     emit(NewsGetScienceLoadingState());
+
     if(science.length==0)
     {
       DioHelper.getData(
@@ -148,4 +150,33 @@ class NewsCubit extends Cubit<NewsStates>{
 
   }
 
+  List<dynamic>search =[];
+  void getSearch(String value){
+    emit(NewsGetSearchLoadingState());
+    if(search.length==0)
+    {
+      DioHelper.getData(
+          url:'v2/everything' ,
+
+          query:{
+            'q':'$value',
+            'apiKey':'19f2f6d6044a4c4899db331be9a42894',
+          }
+
+      ).then((value)
+      {
+
+        search = value?.data['articles'];
+       // print(value?.data['articles'][0]);
+        emit(NewsGetSearchDataSuccessState());
+      }).catchError((error){
+        print(error.toString());
+        emit(NewsGetSearchDataErrorState(error.toString()));
+      });
+    }else{
+      emit(NewsGetSearchDataSuccessState());
+    }
+
+
+  }
 }

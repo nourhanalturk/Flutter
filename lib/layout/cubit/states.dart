@@ -22,3 +22,10 @@ abstract class NewsStates {}
    final String error ;
    NewsGetScienceDataErrorState(this.error);
 }
+
+class NewsGetSearchLoadingState extends NewsStates{}
+class NewsGetSearchDataSuccessState extends NewsStates{}
+class NewsGetSearchDataErrorState extends NewsStates {
+  final String error ;
+  NewsGetSearchDataErrorState(this.error);
+}

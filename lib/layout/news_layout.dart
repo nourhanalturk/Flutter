@@ -3,49 +3,50 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nour/layout/cubit/cubit.dart';
 import 'package:nour/layout/cubit/states.dart';
+import 'package:nour/modules/search/search_screen.dart';
 import 'package:nour/network/remote/dio_helper.dart';
+import 'package:nour/sharing/cubit/cubit.dart';
+import 'package:nour/sharing/sharing.component/components.dart';
 
 class NewsLayout extends StatelessWidget {
   const NewsLayout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context)=>NewsCubit()..getBusiness(),
-      child: BlocConsumer<NewsCubit,NewsStates>(
-        listener: (context, state) {
+    return BlocConsumer<NewsCubit,NewsStates>(
+      listener: (context, state) {
 
-        },
-        builder: (context, state) {
-          var cubit = NewsCubit.get(context);
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                'News app',
-              ),
-              actions: [
-                IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-              ],
+      },
+      builder: (context, state) {
+        var cubit = NewsCubit.get(context);
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'News app',
             ),
-            floatingActionButton:FloatingActionButton(
-              onPressed: () {
-
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    navigateTo(context, SearchScreen(),);
+                  },
+                  icon: Icon(Icons.search)),
+              IconButton(
+                  onPressed: () {
+                    AppCubit.get(context).changeAppMode();
+                  },
+                  icon: Icon(Icons.nightlight_outlined)),
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: cubit.currentIndex,
+            items: cubit.bottomItems,
+            onTap: (index) {
+           cubit.changeBottomNavBar(index);
             },
-              child: Icon(
-                Icons.add,
-              ),
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: cubit.currentIndex,
-              items: cubit.bottomItems,
-              onTap: (index) {
-             cubit.changeBottomNavBar(index);
-              },
-            ),
-            body: cubit.screens[cubit.currentIndex],
-          );
-        },
-      ),
+          ),
+          body: cubit.screens[cubit.currentIndex],
+        );
+      },
     );
   }
 }

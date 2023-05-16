@@ -1,5 +1,6 @@
 
 
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nour/sharing/cubit/cubit.dart';
@@ -143,7 +144,7 @@ Widget buildTaskItem (Map model,context)=>Padding(
   ),
 );
 
-Widget buildArticleComponent (article)=>Padding (
+Widget buildArticleComponent (article,context)=>Padding (
   padding: const EdgeInsets.all(20.0),
   child: Row(
     children: [
@@ -165,14 +166,14 @@ Widget buildArticleComponent (article)=>Padding (
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '${article['title']}',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
+            SizedBox(
 
+              child: Text(
+                '${article['title']}',
+                style:Theme.of(context).textTheme.bodyText1,
+                maxLines: 2,
               ),
-              maxLines: 2,
+              width: 100.0,
             ),
             Text(
               '${article['publishedAt']}',
@@ -188,4 +189,19 @@ Widget buildArticleComponent (article)=>Padding (
       ),
     ],
   ),
+);
+
+void navigateTo (context ,widget)=> Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => widget,)
+);
+Widget articleBuilder(list, context) => ConditionalBuilder(
+  condition: list.length > 0,
+  builder: (context) =>
+      ListView.separated(
+        physics: BouncingScrollPhysics(),
+        itemBuilder: (context, index) => buildArticleComponent(list[index], context),
+        separatorBuilder: (context, index) => Container(width: double.infinity,height: 1.0,),
+        itemCount: 10,),
+  fallback: (context) => Center(child: CircularProgressIndicator()),
 );

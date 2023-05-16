@@ -8,6 +8,7 @@ import 'package:sqflite/sqflite.dart';
 import '../../modules/archived_screen/archive_tasks_screen.dart';
 import '../../modules/done_screen/done_tasks_screen.dart';
 import '../../modules/tasks_screen/new_tasks_screen.dart';
+import '../../network/local/cache_helper.dart';
 import '../sharing.component/constans.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -149,5 +150,23 @@ class AppCubit extends Cubit<AppStates> {
       emit(AppUpdateDatabaseState());
     }
     );
+  }
+
+  bool isDark =false;
+
+  void changeAppMode({bool? fromShared}){
+    if(fromShared!=null)
+    {
+      isDark = fromShared;
+      emit(AppChangeModeState());
+    }
+else{
+    isDark = !isDark ;
+    CacheHelper.setBoolean(key: 'isDark', value: isDark ).then((value) {
+      emit(AppChangeModeState());
+    });
+}
+
+
   }
 }
