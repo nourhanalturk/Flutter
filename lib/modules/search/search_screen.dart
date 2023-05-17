@@ -30,14 +30,14 @@ var searchController = TextEditingController();
                     controller: searchController,
                     type: TextInputType.text,
                     validate: (String? value) {
-                      if(value!.isEmpty){
+                      if(value!.isEmpty)
+                      {
                         return 'search must not be empty';
                       }
                       return null;
                     },
                     text: 'search',
                     prefex: Icons.search,
-                    //مع كل تغيير حروح اعمل search
                     onChange: (value){
                         NewsCubit.get(context).getSearch(value);
                     }
