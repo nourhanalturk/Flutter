@@ -5,9 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nour/sharing/cubit/states.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../modules/archived_screen/archive_tasks_screen.dart';
-import '../../modules/done_screen/done_tasks_screen.dart';
-import '../../modules/tasks_screen/new_tasks_screen.dart';
+
+import '../../modules/todo_app/archived_screen/archive_tasks_screen.dart';
+import '../../modules/todo_app/done_screen/done_tasks_screen.dart';
+import '../../modules/todo_app/tasks_screen/new_tasks_screen.dart';
 import '../../network/local/cache_helper.dart';
 import '../sharing.component/constans.dart';
 

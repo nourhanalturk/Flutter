@@ -7,10 +7,12 @@ import 'package:nour/layout/cubit/states.dart';
 import 'package:nour/sharing/cubit/states.dart';
 
 
-import '../../modules/business/business_screen.dart';
-import '../../modules/science/science_screen.dart';
-import '../../modules/settings/settings.dart';
-import '../../modules/sports/sports_screen.dart';
+
+import '../../modules/news_app/business/business_screen.dart';
+import '../../modules/news_app/science/science_screen.dart';
+import '../../modules/news_app/sports/sports_screen.dart';
+
+
 import '../../network/remote/dio_helper.dart';
 
 class NewsCubit extends Cubit<NewsStates>{
@@ -38,18 +40,17 @@ class NewsCubit extends Cubit<NewsStates>{
       ),
       label: 'science',
     ),
-    BottomNavigationBarItem(
-      icon: Icon(
-        Icons.settings,
-      ),
-      label: 'settings',
-    ),
+    // BottomNavigationBarItem(
+    //   icon: Icon(
+    //     Icons.settings,
+    //   ),
+    //   label: 'settings',
+    // ),
   ];
   List <Widget> screens = [
     BusinessScreen(),
     SportScreen(),
     ScienceScreen(),
-    SettingsScreen(),
 
   ];
 
