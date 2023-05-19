@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import 'colors.dart';
+
 ThemeData darkTheme =ThemeData(
+  primarySwatch: defaultColor,
   scaffoldBackgroundColor: HexColor('333739'),
   appBarTheme: AppBarTheme(
       backwardsCompatibility: false,
@@ -37,7 +40,7 @@ ThemeData darkTheme =ThemeData(
   fontFamily: 'Jannah',
 );
 ThemeData lightTheme = ThemeData(
-
+  primarySwatch: defaultColor,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
       backwardsCompatibility: false,

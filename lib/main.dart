@@ -8,7 +8,7 @@ import 'package:nour/network/remote/dio_helper.dart';
 import 'package:nour/sharing/bloc_observer.dart';
 import 'package:nour/sharing/cubit/cubit.dart';
 import 'package:nour/sharing/cubit/states.dart';
-import 'package:nour/sharing/themes.dart';
+import 'package:nour/style/themes.dart';
 
 import 'layout/cubit/cubit.dart';
 
