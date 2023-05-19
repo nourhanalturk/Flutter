@@ -205,3 +205,9 @@ Widget articleBuilder(list, context) => ConditionalBuilder(
         itemCount: 10,),
   fallback: (context) => Center(child: CircularProgressIndicator()),
 );
+
+void navigateAndFinish (context ,Widget)=>Navigator.pushAndRemoveUntil(context,
+    MaterialPageRoute(
+        builder: (context) => Widget,),
+    (Route <dynamic>route) => false
+);

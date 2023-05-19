@@ -37,7 +37,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget build(BuildContext context) {
     var boardController =PageController();
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          TextButton(onPressed: () {
+            navigateAndFinish(context, ShopLoginScreen());
+          },
+              child: Text('SKIP'),)
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
@@ -82,7 +89,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   onPressed: () {
 
                     if(isLast){
-                      navigateTo(context, ShopLoginScreen());
+                      navigateAndFinish(context, ShopLoginScreen());
                     }else{
                       boardController.nextPage(duration: Duration(microseconds: 750,), curve: Curves.fastLinearToSlowEaseIn);
                     }
