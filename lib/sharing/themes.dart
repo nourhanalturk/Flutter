@@ -34,6 +34,7 @@ ThemeData darkTheme =ThemeData(
         color: Colors.white,
         fontSize: 18.0,
       ) ),
+  fontFamily: 'Jannah',
 );
 ThemeData lightTheme = ThemeData(
 
@@ -68,4 +69,5 @@ ThemeData lightTheme = ThemeData(
       selectedItemColor: Colors.pink,
       unselectedItemColor: Colors.grey
   ),
+    fontFamily: 'Jannah',
 );

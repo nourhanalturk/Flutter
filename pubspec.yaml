@@ -69,7 +69,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-   - image/
+    - assets/images/
+  fonts:
+     - family: Jannah
+       fonts:
+         - asset: assets/fonts/jannah.ttf
 
 
   # To add assets to your application, add an assets section, like this:
