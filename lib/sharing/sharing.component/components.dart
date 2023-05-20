@@ -43,50 +43,50 @@ text.toUpperCase(),
 }
 
 
-Widget defaultFormField ({
- required TextEditingController controller ,
-  required TextInputType type ,
-  Function? onSubmit ,
+Widget defaultFormField({
+  required TextEditingController controller,
+  required TextInputType type,
+  Function? onSubmit,
   Function? onChange,
-  bool isPassword =false,
-  required Function(String? s) validate,
+  bool isPassword = false,
+  required Function(String?) validate,
   required String text,
-  required IconData prefex,
+  IconData? prefex,
   IconData? suffex,
-  Function? suffexPass ,
-   Function? ontap,
-
-}){
+  Function? suffexPass,
+  Function? ontap,
+}) {
   return TextFormField(
     controller: controller,
     obscureText: isPassword,
     keyboardType: type,
-    onFieldSubmitted:(s){
-      onSubmit!(s);
+    onFieldSubmitted: (s) {
+      onSubmit?.call(s);
     },
-    onChanged:(s){
-      onChange!(s);
+    onChanged: (s) {
+      onChange?.call(s);
     },
-    validator: (String? v){
-    return validate(v);
+    validator: (v) {
+      return validate(v);
     },
-    onTap:(){
-      return ontap!();
+    onTap: () {
+      ontap?.call();
     },
-
     decoration: InputDecoration(
       labelText: text,
       prefixIcon: Icon(
         prefex,
       ),
-      suffixIcon: suffex != null ?IconButton(
-        onPressed: (){
-          return suffexPass!();
+      suffixIcon: suffex != null
+          ? IconButton(
+        onPressed: () {
+          suffexPass?.call();
         },
         icon: Icon(
-         suffex,
+          suffex,
         ),
-      ) :null,
+      )
+          : null,
       border: OutlineInputBorder(),
     ),
   );

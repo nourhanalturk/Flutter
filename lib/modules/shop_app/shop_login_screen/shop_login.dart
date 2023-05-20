@@ -72,7 +72,8 @@ class ShopLoginScreen extends StatelessWidget {
                             return null ;
                           },
                           text: 'Password',
-                          prefex: Icons.lock,
+
+                         prefex: Icons.lock,
                         ),
                         SizedBox(
                           height: 30.0 ,
