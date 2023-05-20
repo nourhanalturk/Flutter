@@ -26,6 +26,22 @@ Widget defaultButton({
   ),
 );
 
+Widget defaultTextButton (
+{
+  required String text,
+  required Function function ,
+}
+){
+  return    TextButton(onPressed: ()
+{
+function!();
+},
+child: Text(
+text.toUpperCase(),
+),
+);
+}
+
 
 Widget defaultFormField ({
  required TextEditingController controller ,

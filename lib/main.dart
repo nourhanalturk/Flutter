@@ -14,6 +14,7 @@ import 'layout/cubit/cubit.dart';
 
 
 import 'modules/shop_app/on_boarding/on_boarding.dart';
+import 'modules/shop_app/shop_login_screen/shop_login.dart';
 import 'network/local/cache_helper.dart';
 
 void main()async
@@ -49,7 +50,7 @@ MyApp(this.isDark);
             theme:lightTheme,
             darkTheme:darkTheme,
             themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: OnBoardingScreen(),
+            home: ShopLoginScreen(),
           );
         },
       ),
