@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nour/modules/shop_app/shop_login_screen/shop_cubit/shop_states.dart';
 import 'package:nour/network/end_points.dart';
@@ -28,5 +30,15 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
       emit(ShopErrorLoginState(error.toString()));
 
     });
+  }
+
+  IconData suffix = Icons.visibility_outlined;
+  bool isPass = true ;
+
+  void changePasswordVisibility(){
+    isPass =!isPass ;
+    suffix= isPass ?Icons.visibility_outlined:Icons.visibility_off_outlined;
+    emit(ShopChangePasswordVisibilityState());
+
   }
 }
