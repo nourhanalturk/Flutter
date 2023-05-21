@@ -50,7 +50,7 @@ MyApp(this.isDark);
             theme:lightTheme,
             darkTheme:darkTheme,
             themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: ShopLoginScreen(),
+            home: OnBoardingScreen(),
           );
         },
       ),
