@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nour/modules/shop_app/shop_login_screen/shop_login.dart';
+import 'package:nour/network/local/cache_helper.dart';
 import 'package:nour/sharing/sharing.component/components.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -32,15 +33,28 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   ];
 
   bool isLast = false;
+  void submit(){
+    CacheHelper.saveData(
+        key: 'onBoarding', value: true).then((value) {
+      if(value==true) {
+        navigateAndFinish(
+            context,
+            ShopLoginScreen()
+        );
+      }
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
+
     var boardController =PageController();
     return Scaffold(
       appBar: AppBar(
         actions: [
           TextButton(onPressed: () {
-            navigateAndFinish(context, ShopLoginScreen());
+          submit();
           },
               child: Text('SKIP'),)
         ],
@@ -89,7 +103,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   onPressed: () {
 
                     if(isLast){
-                      navigateAndFinish(context, ShopLoginScreen());
+                    submit();
                     }else{
                       boardController.nextPage(duration: Duration(microseconds: 750,), curve: Curves.fastLinearToSlowEaseIn);
                     }

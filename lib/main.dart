@@ -2,8 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:nour/layout/news_app/news_layout.dart';
+import 'package:nour/layout/shop_app/shop_layout.dart';
 import 'package:nour/network/remote/dio_helper.dart';
 import 'package:nour/sharing/bloc_observer.dart';
 import 'package:nour/sharing/cubit/cubit.dart';
@@ -23,14 +22,34 @@ void main()async
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
  await CacheHelper.init();
- bool? isDark = CacheHelper.getBoolean(key: 'isDark');
-  runApp( MyApp(isDark!));
+
+ Widget ?widget ;
+  bool? isDark = CacheHelper.getData(key: 'isDark');
+ bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
+ String token = CacheHelper.getData(key: 'token');
+
+ if(onBoarding!=null){
+   if(token!=null){
+     widget = ShopLayout();
+   }else{
+     widget = ShopLoginScreen();
+   }
+ }else{
+   widget =  OnBoardingScreen();
+ }
+
+
+  runApp( MyApp(
+    widget: widget,
+    isDark: isDark,
+  ));
 }
 
 class MyApp extends StatelessWidget {
+final Widget? widget;
+final bool? isDark ;
 
-final bool isDark ;
-MyApp(this.isDark);
+MyApp({this.isDark ,this.widget});
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -50,7 +69,7 @@ MyApp(this.isDark);
             theme:lightTheme,
             darkTheme:darkTheme,
             themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: OnBoardingScreen(),
+            home:widget,
           );
         },
       ),

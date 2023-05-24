@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nour/layout/shop_app/shop_layout.dart';
 import 'package:nour/modules/shop_app/shop_login_screen/shop_cubit/shop_cubit.dart';
 import 'package:nour/modules/shop_app/shop_login_screen/shop_cubit/shop_states.dart';
 import 'package:nour/modules/todo_app/shop_register_screen.dart';
+import 'package:nour/network/local/cache_helper.dart';
 import 'package:nour/sharing/sharing.component/components.dart';
 
 class ShopLoginScreen extends StatelessWidget {
@@ -24,6 +26,9 @@ class ShopLoginScreen extends StatelessWidget {
           if (state is ShopSuccessLoginState) {
             if (state.loginModel.status == true) {
               print(state.loginModel.data?.token);
+              CacheHelper.saveData(key: 'token', value: state.loginModel.data?.token).then((value) {
+                navigateAndFinish(context, ShopLayout());
+              });
               Fluttertoast.showToast(
                   msg: state.loginModel.message ?? " ",
                   toastLength: Toast.LENGTH_LONG,
