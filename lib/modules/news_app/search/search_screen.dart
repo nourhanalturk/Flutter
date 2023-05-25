@@ -2,9 +2,10 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nour/layout/cubit/cubit.dart';
-import 'package:nour/layout/cubit/states.dart';
 import 'package:nour/sharing/sharing.component/components.dart';
+
+import '../../../layout/news_app/cubit/cubit.dart';
+import '../../../layout/news_app/cubit/states.dart';
 
 class SearchScreen extends StatelessWidget {
 

@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nour/layout/cubit/cubit.dart';
-import 'package:nour/layout/cubit/states.dart';
-
 import 'package:nour/network/remote/dio_helper.dart';
 import 'package:nour/sharing/cubit/cubit.dart';
 import 'package:nour/sharing/sharing.component/components.dart';
 
 import '../../modules/news_app/search/search_screen.dart';
+import 'cubit/cubit.dart';
+import 'cubit/states.dart';
 
 class NewsLayout extends StatelessWidget {
   const NewsLayout({Key? key}) : super(key: key);

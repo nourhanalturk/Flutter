@@ -9,9 +9,9 @@ import 'package:nour/sharing/cubit/cubit.dart';
 import 'package:nour/sharing/cubit/states.dart';
 import 'package:nour/style/themes.dart';
 
-import 'layout/cubit/cubit.dart';
 
-
+import 'layout/news_app/cubit/cubit.dart';
+import 'layout/shop_app/cubit/cubit.dart';
 import 'modules/shop_app/on_boarding/on_boarding.dart';
 import 'modules/shop_app/shop_login_screen/shop_login.dart';
 import 'network/local/cache_helper.dart';
@@ -57,7 +57,8 @@ MyApp({this.isDark ,this.widget});
         BlocProvider(  create: (BuildContext context)=>NewsCubit()..getBusiness(),),
         BlocProvider( create: (context) => AppCubit()..changeAppMode(
     fromShared: isDark ,
-    ),)
+    ),),
+        BlocProvider(  create: (BuildContext context)=>ShopCubit()),
       ],
       child: BlocConsumer<AppCubit,AppStates>(
         listener: (context, state) {
