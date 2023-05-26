@@ -4,10 +4,14 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nour/layout/shop_app/cubit/states.dart';
+import 'package:nour/models/shop_app/home_model.dart';
 import 'package:nour/modules/shop_app/categories/categories_screen.dart';
 import 'package:nour/modules/shop_app/favorites/favorites_screen.dart';
 import 'package:nour/modules/shop_app/products/products_screen.dart';
 import 'package:nour/modules/shop_app/settings/settings_screen.dart';
+import 'package:nour/network/remote/dio_helper.dart';
+
+import '../../../network/end_points.dart';
 
 class ShopCubit extends Cubit<ShopStates> {
   //ShopCubit(super.initialState);
@@ -27,4 +31,16 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopChangeNavBarState());
   }
 
+  HomeModel? homeModel ;
+  void getHomeData(){
+    emit(ShopLoadingHomeDataState());
+    DioHelper.getData(url: HOME).then((value) {
+      homeModel = HomeModel.fromJson(value!.data);
+      print(homeModel.toString());
+      emit(ShopSuccessHomeDataState());
+    }).catchError((error){
+      print(error.toString());
+      emit(ShopErrorHomeDataState());
+    });
+  }
 }
