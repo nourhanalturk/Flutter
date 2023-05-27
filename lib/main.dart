@@ -7,6 +7,7 @@ import 'package:nour/network/remote/dio_helper.dart';
 import 'package:nour/sharing/bloc_observer.dart';
 import 'package:nour/sharing/cubit/cubit.dart';
 import 'package:nour/sharing/cubit/states.dart';
+import 'package:nour/sharing/sharing.component/constans.dart';
 import 'package:nour/style/themes.dart';
 
 
@@ -26,7 +27,7 @@ void main()async
  Widget ?widget ;
   bool? isDark = CacheHelper.getData(key: 'isDark');
  bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
- String token = CacheHelper.getData(key: 'token');
+ token = CacheHelper.getData(key: 'token');
 
  if(onBoarding!=null){
    if(token!=null){

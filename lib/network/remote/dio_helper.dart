@@ -10,10 +10,6 @@ class DioHelper{
       BaseOptions(
         baseUrl: 'https://student.valuxapps.com/api/',
         receiveDataWhenStatusError: true,
-        headers: {
-          'Content-Type':'application/json',
-        }
-
       ),
     );
     dio?.interceptors.add(PrettyDioLogger(
@@ -25,11 +21,12 @@ class DioHelper{
   static Future<Response?> getData({
     required String url,
     Map<String,dynamic>? query,
-    String lang ='ar',
+    String lang ='en',
     String? token ,
   })async
   {
     dio?.options.headers ={
+      'Content-Type':'application/json',
       'lang':lang,
       'Authorization':token,
     };
@@ -49,6 +46,7 @@ class DioHelper{
 )async
 {
   dio?.options.headers ={
+    'Content-Type':'application/json',
     'lang':lang,
     'Authorization':token,
   };
