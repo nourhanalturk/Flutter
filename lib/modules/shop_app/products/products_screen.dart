@@ -1,25 +1,36 @@
+import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nour/layout/shop_app/cubit/cubit.dart';
-import 'package:nour/models/shop_app/home_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nour/layout/shop_app/cubit/states.dart';
+
+import '../../../layout/shop_app/cubit/cubit.dart';
+import '../../../models/shop_app/home_model.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<ShopCubit,ShopStates>(
+     listener: (context, state) {
 
-    return ConditionalBuilder(
-      condition:ShopCubit.get(context).homeModel != null,
-      builder: (context) {
-        return productsBuilder(ShopCubit.get(context).homeModel!);
-      },
-      fallback: (context) {
-        return Center(child: CircularProgressIndicator());
+     },
+      builder: (context, state) {
+        return ConditionalBuilder(
+          condition:ShopCubit.get(context).homeModel != null,
+          builder: (context) {
+            return productsBuilder(ShopCubit.get(context).homeModel!);
+          },
+          fallback: (context) {
+            return Center(child: CircularProgressIndicator());
+          },
+        );
       },
     );
+
   }
 
   Widget productsBuilder(HomeModel model) {
@@ -47,3 +58,4 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 }
+
