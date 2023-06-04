@@ -19,7 +19,7 @@ class DioHelper{
         responseHeader: true));
   }
   static Future<Response?> getData({
-    required String url,
+    required String url, //end point
     Map<String,dynamic>? query,
     String lang ='en',
     String? token ,

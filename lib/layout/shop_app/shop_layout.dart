@@ -11,7 +11,7 @@ class ShopLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      var cubit =ShopCubit.get(context);
+      var cubit = ShopCubit.get(context);
     return BlocConsumer<ShopCubit,ShopStates>(
      listener: (context, state) {
 
@@ -28,7 +28,7 @@ class ShopLayout extends StatelessWidget {
           ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: cubit.currentIndex,
-              items:[
+              items:const [
                 BottomNavigationBarItem(
                     icon: Icon(Icons.home),
                   label: 'Home'
