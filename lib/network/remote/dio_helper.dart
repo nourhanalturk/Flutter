@@ -40,7 +40,7 @@ class DioHelper{
     required String  url,
     Map<String,dynamic>? query,
     required Map<String ,dynamic> data,
-    String lang ='ar',
+    String lang ='en',
     String? token ,
   }
 )async
