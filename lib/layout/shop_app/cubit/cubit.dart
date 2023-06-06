@@ -11,6 +11,7 @@ import 'package:nour/modules/shop_app/products/products_screen.dart';
 import 'package:nour/modules/shop_app/settings/settings_screen.dart';
 import 'package:nour/network/remote/dio_helper.dart';
 
+import '../../../models/shop_app/categories_model.dart';
 import '../../../network/end_points.dart';
 import '../../../sharing/sharing.component/constans.dart';
 
@@ -45,6 +46,18 @@ class ShopCubit extends Cubit<ShopStates> {
     }).catchError((error){
       print(error.toString());
       emit(ShopErrorHomeDataState());
+    });
+  }
+  CategoriesModel? categoriesModel  ;
+  void getCategoriesData(){
+    DioHelper.getData(
+      url: GET_CATEGORIES,
+    ).then((value) {
+      categoriesModel = CategoriesModel.fromJson(value?.data);
+      emit(ShopSuccessCategoriesState());
+    }).catchError((error){
+      print(error.toString());
+      emit(ShopErrorCategoriesState());
     });
   }
 }
