@@ -221,12 +221,12 @@ crossAxisAlignment: CrossAxisAlignment.start,
                   IconButton(
                     onPressed: () {
                       ShopCubit.get(context).changeFavorites(model.id!);
-
+                        print(model.id);
                     },
 
                     icon: CircleAvatar(
                       radius: 15.0,
-                         backgroundColor:ShopCubit.get(context).favorites[model.id!] == true
+                         backgroundColor:ShopCubit.get(context).favorites[model.id]!
                              ? defaultColor
                              : Colors.grey,
                         child: const Icon(
