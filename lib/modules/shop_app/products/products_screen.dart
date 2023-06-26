@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nour/layout/shop_app/cubit/states.dart';
 import 'package:nour/models/shop_app/categories_model.dart';
+import 'package:nour/models/shop_app/change_favorites_model.dart';
 import 'package:nour/style/colors.dart';
 
 import '../../../layout/shop_app/cubit/cubit.dart';
@@ -28,7 +29,7 @@ class ProductsScreen extends StatelessWidget {
                     constraints: BoxConstraints(
                       minHeight: constraints.maxHeight,
                     ),
-                    child: productsBuilder(ShopCubit.get(context).homeModel!,ShopCubit.get(context).categoriesModel!),
+                    child: productsBuilder(ShopCubit.get(context).homeModel!,ShopCubit.get(context).categoriesModel!,context),
                   ),
                 );
               },
@@ -42,7 +43,7 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget productsBuilder(HomeModel model,CategoriesModel categoriesModel) {
+  Widget productsBuilder(HomeModel model,CategoriesModel categoriesModel,context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -116,7 +117,7 @@ class ProductsScreen extends StatelessWidget {
               childAspectRatio: 1/1.6,
               children: List.generate(
                 model.data!.products.length,
-                    (index) => BuildGridProduct(model.data!.products[index]),
+                    (index) => BuildGridProduct(model.data!.products[index],context),
               ),
             ),
           ),
@@ -156,7 +157,7 @@ class ProductsScreen extends StatelessWidget {
     ),
   );
 
-  Widget BuildGridProduct(ProductsModel model) => Container(
+  Widget BuildGridProduct(ProductsModel model,context) => Container(
     color: Colors.white,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,8 +219,23 @@ crossAxisAlignment: CrossAxisAlignment.start,
                   ),
                   const Spacer(),
                   IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.favorite_border),
+                    onPressed: () {
+                      ShopCubit.get(context).changeFavorites(model.id!);
+
+                    },
+
+                    icon: CircleAvatar(
+                      radius: 15.0,
+                         backgroundColor:ShopCubit.get(context).favorites[model.id!] == true
+                             ? defaultColor
+                             : Colors.grey,
+                        child: const Icon(
+                          Icons.favorite_border,
+                          size: 14.0,
+                          color: Colors.white,
+                        )
+                    ),
+
                   ),
                 ],
               ),
