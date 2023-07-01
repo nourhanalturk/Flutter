@@ -13,6 +13,8 @@ import 'package:nour/modules/shop_app/settings/settings_screen.dart';
 import 'package:nour/network/remote/dio_helper.dart';
 
 import '../../../models/shop_app/categories_model.dart';
+import '../../../models/shop_app/favorites_model.dart';
+import '../../../models/shop_app/login_model.dart';
 import '../../../network/end_points.dart';
 import '../../../sharing/sharing.component/constans.dart';
 
@@ -75,7 +77,7 @@ class ShopCubit extends Cubit<ShopStates> {
 ChangeFavoritesModel? changeFavoritesModel ;
   void changeFavorites (int productId){
    favorites[productId] =!favorites[productId]!;
-   emit(ShopSuccessChangeFavoritesState());
+   emit(ShopChangeFavoritesState());
 
    DioHelper.postData(
       url: FAVORITES,
@@ -87,10 +89,10 @@ ChangeFavoritesModel? changeFavoritesModel ;
     ).then((value) {
       changeFavoritesModel = ChangeFavoritesModel.fromJson(value.data);
       print(value.data);
-      if(!(changeFavoritesModel!.status !=null)){
+      if(!(changeFavoritesModel!.status !)){
         favorites[productId] =!favorites[productId]!;
       }
-      emit(ShopSuccessChangeFavoritesState());
+      emit(ShopSuccessChangeFavoritesState(changeFavoritesModel!));
       getHomeData();
       print("hiiiiiiiiiii"+favorites.toString());
       print(favorites[productId]);
@@ -99,6 +101,39 @@ ChangeFavoritesModel? changeFavoritesModel ;
       print(error.toString());
       emit(ShopErrorChangeFavoritesState());
 
+    });
+  }
+
+
+
+  FavoritesModel? favoritesModel  ;
+  void getFavoritesData(){
+    DioHelper.getData(
+      url: FAVORITES,
+      token: token,
+    ).then((value) {
+      favoritesModel = FavoritesModel.fromJson(value?.data);
+      print(value?.data.toString());
+      emit(ShopSuccessGetFavoritesState());
+    }).catchError((error){
+      print(error.toString());
+      emit(ShopErrorGetFavoritesState());
+    });
+  }
+
+  ShopLoginModel? userData  ;
+  void getUserData(){
+    emit(ShopLoadingUserDataState());
+    DioHelper.getData(
+      url: PROFILE,
+     // token:token,
+    ).then((value) {
+      userData = ShopLoginModel.fromJson(value?.data);
+      print(value?.data.toString());
+      emit(ShopSuccessUserDataState());
+    }).catchError((error){
+      print(error.toString());
+      emit(ShopErrorUserDataState());
     });
   }
 }

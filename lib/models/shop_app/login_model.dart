@@ -5,7 +5,7 @@ class ShopLoginModel
  String? message ;
  UserData? data ;
 
- ShopLoginModel.fromJason (Map <String , dynamic>json){
+ ShopLoginModel.fromJson (Map <String , dynamic>json){
   status = json['status'];
   message = json['message'];
   data = json['data'] !=null ? UserData.fromJason(json['data']) : null ;

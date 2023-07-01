@@ -60,7 +60,7 @@ MyApp({this.isDark ,this.widget});
         BlocProvider( create: (context) => AppCubit()..changeAppMode(
     fromShared: isDark ,
     ),),
-        BlocProvider(  create: (BuildContext context)=>ShopCubit()..getHomeData()..getCategoriesData()),
+        BlocProvider(  create: (BuildContext context)=>ShopCubit()..getHomeData()..getCategoriesData()..getFavoritesData()..getUserData()),
       ],
       child: BlocConsumer<AppCubit,AppStates>(
         listener: (context, state) {

@@ -28,7 +28,7 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
         }
     ).then((value) {
       print(value.data);
-      loginModel= ShopLoginModel.fromJason(value.data);
+      loginModel= ShopLoginModel.fromJson(value.data);
       print(loginModel!.message);
       print(loginModel!.data!.token);
 
