@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "782791399409",
+    "project_id": "social-app-udemy-e8df7",
+    "storage_bucket": "social-app-udemy-e8df7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782791399409:android:92ca58e15db9c2c1345650",
+        "android_client_info": {
+          "package_name": "com.example.nour"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782791399409-okv3vhdprnm5j0rm52jo9h87t32adfrf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-N-CtKOlqhAHgYAN6Qo5Umc_rh_KRu_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782791399409-okv3vhdprnm5j0rm52jo9h87t32adfrf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
