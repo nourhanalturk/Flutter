@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,15 +16,16 @@ import 'layout/news_app/cubit/cubit.dart';
 import 'layout/shop_app/cubit/cubit.dart';
 import 'modules/shop_app/on_boarding/on_boarding.dart';
 import 'modules/shop_app/shop_login_screen/shop_login.dart';
+import 'modules/social_app/social_login/social_login_screen.dart';
 import 'network/local/cache_helper.dart';
 
 void main()async
 {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
  await CacheHelper.init();
-
  Widget ?widget ;
   bool? isDark = CacheHelper.getData(key: 'isDark');
  bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
@@ -72,7 +74,7 @@ MyApp({this.isDark ,this.widget});
             theme:lightTheme,
             darkTheme:darkTheme,
             themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home:widget,
+            home:SocialLoginScreen(),
           );
         },
       ),
