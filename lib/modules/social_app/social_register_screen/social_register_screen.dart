@@ -5,6 +5,8 @@ import 'package:nour/modules/social_app/social_register_screen/social_cubit/cubi
 import 'package:nour/modules/social_app/social_register_screen/social_cubit/state.dart';
 import 'package:nour/sharing/sharing.component/components.dart';
 
+import '../../../layout/social_app/social_layout_screen.dart';
+
 
 class SocialRegisterScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
@@ -19,12 +21,12 @@ class SocialRegisterScreen extends StatelessWidget {
       create: (BuildContext context) => SocialRegisterCubit(),
       child: BlocConsumer<SocialRegisterCubit, SocialRegisterStates>(
         listener: (context, state) {
-        // if (state is SocialCreateUserSuccessState) {
-        //   navigateAndFinish(
-        //     context,
-        //     SocialLayout(),
-        //   );
-        // }
+        if (state is SocialCreateUserSuccessState) {
+          navigateAndFinish(
+            context,
+            SocialLayout(),
+          );
+        }
       },
         builder: (context, state) {
           return Scaffold(
