@@ -2,9 +2,11 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nour/layout/social_app/social_layout_screen.dart';
 import 'package:nour/modules/social_app/social_login/social_cubit/social_cubit.dart';
 import 'package:nour/modules/social_app/social_login/social_cubit/social_states.dart';
 import 'package:nour/modules/social_app/social_register_screen/social_register_screen.dart';
+import 'package:nour/network/local/cache_helper.dart';
 import 'package:toast/toast.dart';
 import '../../../sharing/sharing.component/components.dart';
 import '../../shop_app/shop_login_screen/shop_cubit/shop_cubit.dart';
@@ -25,6 +27,14 @@ var passwordController =TextEditingController();
    toastContext.init(context);
    Toast.show(state.error!,backgroundColor: Colors.red,duration: Toast.lengthLong );
 
+ }
+ if(state is SocialSuccessLoginState){
+   CacheHelper.saveData(key: 'uId',
+       value:state.uId
+   ).then((value) {
+navigateAndFinish(context, SocialLayout()
+);
+   });
  }
       },
         builder: (context, state) {

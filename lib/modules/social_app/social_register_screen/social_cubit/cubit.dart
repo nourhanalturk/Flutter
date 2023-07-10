@@ -31,7 +31,7 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
            name: name,
            email: email
          );
-         emit(SocialRegisterSuccessState());
+         //emit(SocialRegisterSuccessState());
        }
        ).catchError((error){
          emit(SocialRegisterErrorState(error));

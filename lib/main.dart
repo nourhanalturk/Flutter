@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nour/layout/shop_app/shop_layout.dart';
+import 'package:nour/layout/social_app/social_layout_screen.dart';
 import 'package:nour/network/remote/dio_helper.dart';
 import 'package:nour/sharing/bloc_observer.dart';
 import 'package:nour/sharing/cubit/cubit.dart';
@@ -28,20 +29,26 @@ void main()async
  await CacheHelper.init();
  Widget ?widget ;
   bool? isDark = CacheHelper.getData(key: 'isDark');
- bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
- token = CacheHelper.getData(key: 'token');
- print(token);
+// bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
+ //token = CacheHelper.getData(key: 'token');
+ var uId = CacheHelper.getData(key: 'uId');
+ print(uId);
 
- if(onBoarding!=null){
-   if(token!=null){
-     widget = ShopLayout();
-   }else{
-     widget = ShopLoginScreen();
-   }
- }else{
-   widget =  OnBoardingScreen();
- }
+ // if(onBoarding!=null){
+ //   if(token!=null){
+ //     widget = ShopLayout();
+ //   }else{
+ //     widget = ShopLoginScreen();
+ //   }
+ // }else{
+ //   widget =  OnBoardingScreen();
+ // }
 
+if(uId !=null){
+  widget = SocialLayout();
+}else{
+  widget = SocialLoginScreen();
+}
 
   runApp( MyApp(
     widget: widget,
@@ -74,7 +81,7 @@ MyApp({this.isDark ,this.widget});
             theme:lightTheme,
             darkTheme:darkTheme,
             themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home:SocialLoginScreen(),
+            home:widget,
           );
         },
       ),
