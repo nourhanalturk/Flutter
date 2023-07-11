@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nour/layout/shop_app/shop_layout.dart';
 import 'package:nour/layout/social_app/social_layout_screen.dart';
+import 'package:nour/models/social_app/cubit/cubit.dart';
 import 'package:nour/network/remote/dio_helper.dart';
 import 'package:nour/sharing/bloc_observer.dart';
 import 'package:nour/sharing/cubit/cubit.dart';
@@ -31,7 +32,7 @@ void main()async
   bool? isDark = CacheHelper.getData(key: 'isDark');
 // bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
  //token = CacheHelper.getData(key: 'token');
- var uId = CacheHelper.getData(key: 'uId');
+ uId = CacheHelper.getData(key: 'uId');
  print(uId);
 
  // if(onBoarding!=null){
@@ -70,6 +71,8 @@ MyApp({this.isDark ,this.widget});
     fromShared: isDark ,
     ),),
         BlocProvider(  create: (BuildContext context)=>ShopCubit()..getHomeData()..getCategoriesData()..getFavoritesData()..getUserData()),
+        BlocProvider(  create: (BuildContext context)=>SocialCubit()..getUserData()),
+
       ],
       child: BlocConsumer<AppCubit,AppStates>(
         listener: (context, state) {
