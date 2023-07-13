@@ -14,12 +14,14 @@ ThemeData darkTheme =ThemeData(
         statusBarIconBrightness: Brightness.dark,
 
       ),
+
       backgroundColor:HexColor('333739'),
       elevation: 0.0,
       titleTextStyle: TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.bold,
         fontSize: 20.0,
+        fontFamily: 'Jannah',
       ),
       iconTheme: IconThemeData(
         color: Colors.white,
@@ -36,7 +38,13 @@ ThemeData darkTheme =ThemeData(
       bodyText1: TextStyle(
         color: Colors.white,
         fontSize: 18.0,
-      ) ),
+      ) ,
+    subtitle1:  TextStyle(
+      color: Colors.white,
+      fontSize: 14.0,
+      height: 1.3
+    ),
+  ),
   fontFamily: 'Jannah',
 );
 ThemeData lightTheme = ThemeData(
@@ -55,6 +63,7 @@ ThemeData lightTheme = ThemeData(
         color: Colors.black87,
         fontWeight: FontWeight.bold,
         fontSize: 20.0,
+
       ),
       iconTheme: IconThemeData(
         color: Colors.black87,
@@ -65,7 +74,13 @@ ThemeData lightTheme = ThemeData(
       bodyText1: TextStyle(
         color: Colors.black,
         fontSize: 18.0,
-      ) ),
+      ),
+    subtitle1:  TextStyle(
+      color: Colors.black,
+      fontSize: 14.0,
+      height: 1.3
+    ),
+  ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.white,
