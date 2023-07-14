@@ -8,7 +8,7 @@ ThemeData darkTheme =ThemeData(
   primarySwatch: defaultColor,
   scaffoldBackgroundColor: HexColor('333739'),
   appBarTheme: AppBarTheme(
-      backwardsCompatibility: false,
+     // backwardsCompatibility: false,
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor:HexColor('333739'),
         statusBarIconBrightness: Brightness.dark,
@@ -51,7 +51,7 @@ ThemeData lightTheme = ThemeData(
   primarySwatch: defaultColor,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
-      backwardsCompatibility: false,
+     // backwardsCompatibility: false,
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: Colors.white,
         statusBarIconBrightness: Brightness.dark,
