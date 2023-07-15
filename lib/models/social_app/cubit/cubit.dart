@@ -93,8 +93,12 @@ class SocialCubit extends Cubit<SocialStates>{
 
     }
   }
-  String profileImageUrl ='';
-  void uploadProfileImage(){
+  void uploadProfileImage( 
+      {required phone,
+      required bio,
+      required name,})
+  {
+    emit(SocialUserUpdateLoadingState());
     firebase_storage.FirebaseStorage
         .instance
         .ref()
@@ -102,9 +106,9 @@ class SocialCubit extends Cubit<SocialStates>{
         .putFile(profileImage!)
         .then((value){
           value.ref.getDownloadURL().then((value) {
-            emit(SocialUploadProfileImageSuccessState());
+           // emit(SocialUploadProfileImageSuccessState());
             print(value);
-            profileImageUrl=value;
+           updateUser(phone: phone, bio: bio, name: name,image: value);
           }).catchError((error){
             emit(SocialUploadProfileImageErrorState());
 
@@ -116,9 +120,14 @@ class SocialCubit extends Cubit<SocialStates>{
     });
 
   }
-  String coverImageUrl ='';
+  
 
-  void uploadCoverImage(){
+  void uploadCoverImage(
+      {required phone,
+        required bio,
+        required name,}){
+    emit(SocialUserUpdateLoadingState());
+
     firebase_storage.FirebaseStorage
         .instance
         .ref()
@@ -126,9 +135,9 @@ class SocialCubit extends Cubit<SocialStates>{
         .putFile(CoverImage!)
         .then((value){
       value.ref.getDownloadURL().then((value) {
-        emit(SocialUploadCoverImageSuccessState());
+       // emit(SocialUploadCoverImageSuccessState());
         print(value);
-        coverImageUrl=value;
+        updateUser(phone: phone, bio: bio, name: name,cover: value);
       }).catchError((error){
         emit(SocialUploadCoverImageErrorState());
 
@@ -140,40 +149,49 @@ class SocialCubit extends Cubit<SocialStates>{
 
   }
 
+//   void updateUserImages({
+//     required phone,
+//     required bio,
+//     required name
+// }){
+//  emit(SocialUserUpdateLoadingState());
+//     if(CoverImage !=null ){
+//       uploadCoverImage();
+//     }else if(profileImage !=null){
+//       uploadProfileImage();
+//     }else{
+//  updateUser(phone: phone, bio: bio, name: name);
+//     }
+//
+//   }
   void updateUser({
     required phone,
     required bio,
-    required name
-}){
- emit(SocialUserUpdateLoadingState());
-    if(CoverImage !=null ){
-      uploadCoverImage();
-    }else if(profileImage !=null){
-      uploadProfileImage();
-    }else{
-      SocialUsersModel model = SocialUsersModel(
+    required name,
+    String? cover ,
+    String? image
+  }){
+    SocialUsersModel model = SocialUsersModel(
         phone: phone,
         name: name,
         bio: bio,
         email: socialUsersModel!.email,
-          image: socialUsersModel!.image,
-          cover: socialUsersModel!.cover,
-          uId: socialUsersModel!.uId,
-          isEmailVerified: false
-      );
+        image:image?? socialUsersModel!.image,
+        cover: cover??socialUsersModel!.cover,
+        uId: socialUsersModel!.uId,
+        isEmailVerified: false
+    );
 
-      FirebaseFirestore
-          .instance
-          .collection('users')
-          .doc(socialUsersModel!.uId)
-          .update(model.toMap())
-          .then((value) {
-        getUserData();
-      })
-          .catchError((error){
-        emit(SocialUserUpdateErrorState());
-      });
-    }
-
+    FirebaseFirestore
+        .instance
+        .collection('users')
+        .doc(socialUsersModel!.uId)
+        .update(model.toMap())
+        .then((value) {
+      getUserData();
+    })
+        .catchError((error){
+      emit(SocialUserUpdateErrorState());
+    });
   }
 }
