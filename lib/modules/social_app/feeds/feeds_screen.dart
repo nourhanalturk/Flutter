@@ -1,5 +1,10 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nour/models/social_app/cubit/cubit.dart';
+import 'package:nour/models/social_app/cubit/states.dart';
+import 'package:nour/models/social_app/post_model.dart';
 import 'package:nour/sharing/icon_broken.dart';
 import 'package:nour/style/colors.dart';
 
@@ -8,44 +13,55 @@ class FeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          Card(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            margin: EdgeInsets.all(8.0),
-            elevation: 5,
-            child: Stack(
-              alignment: AlignmentDirectional.bottomEnd,
+    return BlocConsumer<SocialCubit,SocialStates>(
+      listener: (context, state) {
+
+      },
+      builder: (context, state) {
+        return ConditionalBuilder(
+          condition:SocialCubit.get(context).posts.length > 0 && SocialCubit.get(context).socialUsersModel !=null,
+          builder: (context) => SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
               children: [
-                Image(
-                      image:NetworkImage(
-                        'https://image.freepik.com/free-photo/horizontal-shot-smiling-curly-haired-woman-indicates-free-space-demonstrates-place-your-advertisement-attracts-attention-sale-wears-green-turtleneck-isolated-vibrant-pink-wall_273609-42770.jpg',
-                      ) ,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  height: 200.0,
+                Card(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  margin: EdgeInsets.all(8.0),
+                  elevation: 5,
+                  child: Stack(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    children: [
+                      Image(
+                        image:NetworkImage(
+                          'https://image.freepik.com/free-photo/horizontal-shot-smiling-curly-haired-woman-indicates-free-space-demonstrates-place-your-advertisement-attracts-attention-sale-wears-green-turtleneck-isolated-vibrant-pink-wall_273609-42770.jpg',
+                        ) ,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        height: 200.0,
+                      ),
+                      Text(
+                        'Communication with friends',
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Colors.white),
+                      )
+                    ],
+                  ),
                 ),
-                Text(
-                  'Communication with friends',
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Colors.white),
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => buildPostItem(SocialCubit.get(context).posts[index],context,index),
+                  separatorBuilder: (context, index) => SizedBox(height: 10.0,),
+                  itemCount: SocialCubit.get(context).posts.length,
                 )
               ],
             ),
           ),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => buildPostItem(context),
-            separatorBuilder: (context, index) => SizedBox(height: 10.0,),
-            itemCount: 10,
-          )
-        ],
-      ),
+          fallback: (context) => Center(child: CircularProgressIndicator()),
+        );
+      },
     );
   }
-  Widget buildPostItem (context){
+  Widget buildPostItem (PostModel model,context,index){
     return Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         margin: EdgeInsets.symmetric(horizontal: 8.0),
@@ -53,13 +69,14 @@ class FeedScreen extends StatelessWidget {
         child:Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
                   CircleAvatar(
                     radius: 25.0,
                     backgroundImage: NetworkImage(
-                      'https://image.freepik.com/free-photo/horizontal-shot-smiling-curly-haired-woman-indicates-free-space-demonstrates-place-your-advertisement-attracts-attention-sale-wears-green-turtleneck-isolated-vibrant-pink-wall_273609-42770.jpg',
+                      '${model.image}'
                     ) ,
                   ),
                   SizedBox(
@@ -71,14 +88,14 @@ class FeedScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Text('Nourhan Al Turk',style: TextStyle(height: 1.4),),
+                            Text('${model.name}',style: TextStyle(height: 1.4),),
                             SizedBox(
                               width: 5.0,
                             ),
                             Icon(Icons.check_circle,color: defaultColor,size: 16.0,)
                           ],
                         ),
-                        Text('January 21 ,2023 at 11:00am',style: Theme.of(context).textTheme.caption!.copyWith(height: 1.4),)
+                        Text('${model.dateTime}',style: Theme.of(context).textTheme.caption!.copyWith(height: 1.4),)
                       ],
                     ),
                   ),
@@ -108,7 +125,7 @@ class FeedScreen extends StatelessWidget {
                 height: 10.0,
               ),
               Text(
-                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book',
+                  '${model.text}',
                 style: Theme.of(context).textTheme.subtitle1,
               ),
               Padding(
@@ -132,18 +149,22 @@ class FeedScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                  width: double.infinity,
-                  height: 140.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    image: DecorationImage(
-                        image: NetworkImage(
-                          'https://image.freepik.com/free-photo/horizontal-shot-smiling-curly-haired-woman-indicates-free-space-demonstrates-place-your-advertisement-attracts-attention-sale-wears-green-turtleneck-isolated-vibrant-pink-wall_273609-42770.jpg',
-                        ) ,
-                        fit: BoxFit.cover
-                    ),
-                  )
+              if(model.postImage != '')
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: Container(
+                    width: double.infinity,
+                    height: 140.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      image: DecorationImage(
+                          image: NetworkImage(
+                              '${model.postImage}'
+                          ) ,
+                          fit: BoxFit.cover
+                      ),
+                    )
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -160,7 +181,7 @@ class FeedScreen extends StatelessWidget {
                             children: [
                               Icon(IconBroken.Heart,size: 16.0,color: Colors.red,),
                               SizedBox(width: 5.0,),
-                              Text('1200',style: Theme.of(context).textTheme.caption,)
+                              Text('${SocialCubit.get(context).likes[index]}',style: Theme.of(context).textTheme.caption,)
                             ],
                           ),
                         ),
@@ -176,7 +197,7 @@ class FeedScreen extends StatelessWidget {
                             children: [
                               Icon(IconBroken.Chat,size: 16.0,color: Colors.amber,),
                               SizedBox(width: 5.0,),
-                              Text('120 comment',style: Theme.of(context).textTheme.caption,)
+                              Text('0 comment',style: Theme.of(context).textTheme.caption,)
                             ],
                           ),
                         ),
@@ -202,7 +223,8 @@ class FeedScreen extends StatelessWidget {
                           CircleAvatar(
                             radius: 18.0,
                             backgroundImage: NetworkImage(
-                              'https://image.freepik.com/free-photo/horizontal-shot-smiling-curly-haired-woman-indicates-free-space-demonstrates-place-your-advertisement-attracts-attention-sale-wears-green-turtleneck-isolated-vibrant-pink-wall_273609-42770.jpg',
+
+                                '${SocialCubit.get(context).socialUsersModel!.image}'
                             ) ,
                           ),
                           SizedBox(
@@ -219,7 +241,9 @@ class FeedScreen extends StatelessWidget {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      SocialCubit.get(context).likePost(SocialCubit.get(context).postId[index]);
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

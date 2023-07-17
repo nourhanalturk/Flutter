@@ -77,7 +77,7 @@ class EditeProfileScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.only(topRight:Radius.circular(4.0),topLeft:Radius.circular(4.0)),
                                     image: DecorationImage(
                                         image:coverImage == null
-                                            ? NetworkImage('${userModel!.image}') as ImageProvider<Object>
+                                            ? NetworkImage('${userModel!.cover}') as ImageProvider<Object>
                                             : FileImage(coverImage) as ImageProvider<Object>,
                                         fit: BoxFit.cover
                                     ),

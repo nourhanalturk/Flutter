@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nour/models/social_app/cubit/cubit.dart';
 import 'package:nour/models/social_app/cubit/states.dart';
-import 'package:nour/modules/social_app/new_post/new_%5Bpost_screen.dart';
 import 'package:nour/sharing/icon_broken.dart';
 import 'package:nour/sharing/sharing.component/components.dart';
 import 'package:toast/toast.dart';
+
+import '../../modules/social_app/new_post/new_post_screen.dart';
 
 class SocialLayout extends StatelessWidget {
 

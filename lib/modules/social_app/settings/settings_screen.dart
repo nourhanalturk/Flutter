@@ -36,7 +36,7 @@ class SettingsScreen extends StatelessWidget {
                             borderRadius: BorderRadius.only(topRight:Radius.circular(4.0),topLeft:Radius.circular(4.0)),
                             image: DecorationImage(
                                 image: NetworkImage(
-                                  '${userModel!.image}'
+                                  '${userModel!.cover}'
                                 ) ,
                                 fit: BoxFit.cover
                             ),
@@ -49,7 +49,7 @@ class SettingsScreen extends StatelessWidget {
                       child: CircleAvatar(
                         radius: 60.0,
                         backgroundImage: NetworkImage(
-                            '${userModel!.cover}'
+                            '${userModel!.image}'
                         ) ,
                       ),
                     ),
