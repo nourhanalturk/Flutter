@@ -52,6 +52,11 @@ class SocialCreatePostSuccessState extends SocialStates{}
 class SocialCreatePostErrorState extends SocialStates{}
 class SocialRemovePostImageState extends SocialStates{}
 
+class SocialSendMessageSuccessState extends SocialStates{}
+class SocialSendMessageErrorState extends SocialStates{}
+class SocialGetMessageSuccessState extends SocialStates{}
+class SocialGetMessageErrorState extends SocialStates{}
+
 
 
 

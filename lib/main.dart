@@ -71,7 +71,7 @@ MyApp({this.isDark ,this.widget});
     fromShared: isDark ,
     ),),
         BlocProvider(  create: (BuildContext context)=>ShopCubit()..getHomeData()..getCategoriesData()..getFavoritesData()..getUserData()),
-        BlocProvider(  create: (BuildContext context)=>SocialCubit()..getUserData()..getPosts()..getAllUsers()),
+        BlocProvider(  create: (BuildContext context)=>SocialCubit()..getUserData()..getPosts()),
 
       ],
       child: BlocConsumer<AppCubit,AppStates>(
