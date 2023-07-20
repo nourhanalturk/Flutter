@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,13 @@ void main()async
 {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  var token =await FirebaseMessaging.instance.getToken();
+  print(token);
   Bloc.observer = MyBlocObserver();
+  FirebaseMessaging.onMessage.listen((event) {
+    print('hii');
+    print(event.data.toString());
+  });
   DioHelper.init();
  await CacheHelper.init();
  Widget ?widget ;
@@ -56,6 +63,7 @@ if(uId !=null){
     isDark: isDark,
   ));
 }
+
 
 class MyApp extends StatelessWidget {
 final Widget? widget;

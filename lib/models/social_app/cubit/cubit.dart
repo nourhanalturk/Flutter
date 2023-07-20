@@ -386,4 +386,29 @@ class SocialCubit extends Cubit<SocialStates>{
 
     });
   }
+
+  List<MessageModel> messages =[];
+  void getMessages({
+    required receiverId,
+}){
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(socialUsersModel!.uId)
+        .collection('chats')
+        .doc(receiverId)
+        .collection('messages')
+        .orderBy('dateTime')
+        .snapshots()
+        .listen((event) {
+          // in listen the data will get all the messages
+      messages =[];
+          //event is the message
+      event.docs.forEach((element) {
+        messages.add(MessageModel.fromJson(element.data()));
+      });
+      emit(SocialGetMessageSuccessState());
+    });
+}
+
+//snapshots is a real time or future query its always open and then we listen to the changes
 }
