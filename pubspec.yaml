@@ -54,6 +54,7 @@ dependencies:
   image_picker: ^1.0.1
   firebase_storage: ^11.2.5
   firebase_messaging: ^14.6.5
+  desktop_window: ^0.4.0
 
 
 

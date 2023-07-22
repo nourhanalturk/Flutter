@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:desktop_window/desktop_window.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nour/layout/news_app/news_layout.dart';
 import 'package:nour/layout/shop_app/shop_layout.dart';
 import 'package:nour/layout/social_app/social_layout_screen.dart';
 import 'package:nour/models/social_app/cubit/cubit.dart';
@@ -25,14 +29,17 @@ import 'network/local/cache_helper.dart';
 void main()async
 {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  var token =await FirebaseMessaging.instance.getToken();
+  if(Platform.isWindows)
+  await DesktopWindow.setMinWindowSize(Size(650.0, 650));
+
+  //await Firebase.initializeApp();
+ // var token =await FirebaseMessaging.instance.getToken();
   print(token);
   Bloc.observer = MyBlocObserver();
-  FirebaseMessaging.onMessage.listen((event) {
-    print('hii');
-    print(event.data.toString());
-  });
+  // FirebaseMessaging.onMessage.listen((event) {
+  //   print('hii');
+  //   print(event.data.toString());
+  // });
   DioHelper.init();
  await CacheHelper.init();
  Widget ?widget ;
@@ -92,7 +99,7 @@ MyApp({this.isDark ,this.widget});
             theme:lightTheme,
             darkTheme:darkTheme,
             themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home:widget,
+            home:NewsLayout(),
           );
         },
       ),
